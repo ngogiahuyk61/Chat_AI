@@ -1,23 +1,16 @@
+'use strict';
+const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  const Document = sequelize.define('Document', {
-    id: {
-      type: DataTypes.INTEGER,
-      autoIncrement: true,
-      primaryKey: true,
-    },
-    title: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    file_path: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    embedded: {
-      type: DataTypes.BOOLEAN,
-      defaultValue: false,
-    },
+  class Document extends Model {
+    static associate(models) {}
+  }
+  Document.init({
+    title: DataTypes.STRING,
+    file_path: DataTypes.STRING,
+    embedded: DataTypes.BOOLEAN
   }, {
+    sequelize,
+    modelName: 'Document',
     tableName: 'documents',
     timestamps: false,
   });

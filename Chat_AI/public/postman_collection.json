@@ -1,0 +1,68 @@
+{
+  "info": {
+    "_postman_id": "chat-ai-collection",
+    "name": "Chat AI API Collection",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Gửi prompt (chat)",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"message\": \"Xin chào!\"\n}"
+        },
+        "url": { "raw": "{{base_url}}/api/chat", "host": ["{{base_url}}"], "path": ["api", "chat"] }
+      }
+    },
+    {
+      "name": "Lấy danh sách hội thoại",
+      "request": {
+        "method": "GET",
+        "url": { "raw": "{{base_url}}/api/conversations", "host": ["{{base_url}}"], "path": ["api", "conversations"] }
+      }
+    },
+    {
+      "name": "Lấy danh sách message theo hội thoại",
+      "request": {
+        "method": "GET",
+        "url": { "raw": "{{base_url}}/api/messages/1", "host": ["{{base_url}}"], "path": ["api", "messages", "1"] }
+      }
+    },
+    {
+      "name": "Gửi prompt (lưu prompt + response)",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"prompt\": \"Tôi cần trợ giúp về thủ tục hành chính.\"\n}"
+        },
+        "url": { "raw": "{{base_url}}/api/prompt", "host": ["{{base_url}}"], "path": ["api", "prompt"] }
+      }
+    },
+    {
+      "name": "Upload file RAG",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            { "key": "file", "type": "file", "src": "" }
+          ]
+        },
+        "url": { "raw": "{{base_url}}/api/rag/upload", "host": ["{{base_url}}"], "path": ["api", "rag", "upload"] }
+      }
+    }
+  ],
+  "variable": [
+    { "key": "base_url", "value": "http://localhost:3000" }
+  ]
+}

@@ -17,40 +17,20 @@ function TypingEffect({ text }) {
   return <span>{display}</span>;
 }
 
-function ChatWindow({ messages, onBotReply }) {
-  const [loading, setLoading] = useState(false);
-  const [pending, setPending] = useState(null);
+function ChatWindow({ messages }) {
   const chatRef = useRef(null);
 
   useEffect(() => {
     if (chatRef.current) chatRef.current.scrollTop = chatRef.current.scrollHeight;
-  }, [messages, loading]);
-
-  // Hiệu ứng loading khi chờ bot trả lời
-  useEffect(() => {
-    if (loading) setPending('Đang soạn phản hồi...');
-    else setPending(null);
-  }, [loading]);
-
-  // Giả lập gọi API và nhận phản hồi bot (demo, sẽ kết nối thật ở ChatInput)
-  // useEffect(() => {
-  //   if (messages.length && messages[messages.length-1].sender === 'user') {
-  //     setLoading(true);
-  //     setTimeout(() => {
-  //       onBotReply('Đây là phản hồi mẫu từ bot.');
-  //       setLoading(false);
-  //     }, 1200);
-  //   }
-  // }, [messages]);
+  }, [messages]);
 
   return (
     <div className="chat-window" ref={chatRef}>
       {messages.map((msg, idx) => (
         <div key={idx} className={`msg ${msg.sender}`}> 
-          {msg.sender === 'bot' ? <TypingEffect text={msg.content} /> : msg.content}
+          {msg.sender === 'bot' ? <TypingEffect text={msg.message || msg.content} /> : (msg.message || msg.content)}
         </div>
       ))}
-      {loading && <div className="msg bot loading">{pending}</div>}
     </div>
   );
 }

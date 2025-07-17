@@ -1,27 +1,19 @@
+'use strict';
+const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  const Message = sequelize.define('Message', {
-    id: {
-      type: DataTypes.INTEGER,
-      autoIncrement: true,
-      primaryKey: true,
-    },
-    conversation_id: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-    },
-    sender: {
-      type: DataTypes.ENUM('user', 'bot'),
-      allowNull: false,
-    },
-    message: {
-      type: DataTypes.TEXT,
-      allowNull: false,
-    },
-    created_at: {
-      type: DataTypes.DATE,
-      defaultValue: DataTypes.NOW,
-    },
+  class Message extends Model {
+    static associate(models) {
+      Message.belongsTo(models.Conversation, { foreignKey: 'conversation_id' });
+    }
+  }
+  Message.init({
+    conversation_id: DataTypes.INTEGER,
+    sender: DataTypes.STRING,
+    message: DataTypes.TEXT,
+    created_at: DataTypes.DATE
   }, {
+    sequelize,
+    modelName: 'Message',
     tableName: 'messages',
     timestamps: false,
   });

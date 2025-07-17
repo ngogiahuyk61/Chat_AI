@@ -14,7 +14,7 @@ function Sidebar({ conversations, currentId, setCurrentId, onNewChat }) {
             className={conv.id === currentId ? 'active' : ''}
             onClick={() => setCurrentId(conv.id)}
           >
-            {conv.title}
+            {conv.title || `Hội thoại #${conv.id}`}
           </li>
         ))}
       </ul>
